@@ -5,6 +5,9 @@ import { resolve } from 'path';
 
 export default defineConfig({
   plugins: [react(), cssInjectedByJs()],
+  define: {
+    'process.env.NODE_ENV': JSON.stringify('production'),
+  },
   build: {
     outDir: '../plugin/assets',
     emptyOutDir: false,
