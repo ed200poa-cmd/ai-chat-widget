@@ -12,7 +12,8 @@ if _DATABASE_URL.startswith("postgres://"):
 elif _DATABASE_URL.startswith("postgresql://") and "+asyncpg" not in _DATABASE_URL:
     _DATABASE_URL = _DATABASE_URL.replace("postgresql://", "postgresql+asyncpg://", 1)
 
-engine = create_async_engine(_DATABASE_URL, echo=False)
+_ssl = "require" if any(x in _DATABASE_URL for x in [".proxy.rlwy.net", ".railway.internal"]) else False
+engine = create_async_engine(_DATABASE_URL, echo=False, connect_args={"ssl": _ssl})
 _session_maker = async_sessionmaker(engine, class_=AsyncSession, expire_on_commit=False)
 
 
