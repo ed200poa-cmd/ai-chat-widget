@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Chat Widget — Demo</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f9fafb; color: #111827; }
+
+    /* Nav */
+    nav { background: #fff; border-bottom: 1px solid #e5e7eb; padding: 0 32px; height: 64px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
+    .nav-logo { font-weight: 700; font-size: 20px; color: #6366f1; }
+    .nav-links { display: flex; gap: 28px; }
+    .nav-links a { color: #6b7280; text-decoration: none; font-size: 14px; font-weight: 500; }
+    .nav-links a:hover { color: #6366f1; }
+    .nav-cta { background: #6366f1; color: #fff; padding: 8px 18px; border-radius: 8px; font-size: 14px; font-weight: 600; text-decoration: none; }
+    .nav-cta:hover { background: #4f46e5; }
+
+    /* Hero */
+    .hero { max-width: 900px; margin: 80px auto 0; padding: 0 24px; text-align: center; }
+    .hero-badge { display: inline-block; background: #ede9fe; color: #6366f1; font-size: 13px; font-weight: 600; padding: 4px 14px; border-radius: 99px; margin-bottom: 20px; }
+    .hero h1 { font-size: clamp(32px, 5vw, 56px); font-weight: 800; line-height: 1.1; letter-spacing: -1.5px; color: #111827; }
+    .hero h1 span { color: #6366f1; }
+    .hero p { margin-top: 20px; font-size: 18px; color: #6b7280; line-height: 1.7; max-width: 600px; margin-left: auto; margin-right: auto; }
+    .hero-actions { margin-top: 36px; display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .btn-primary { background: #6366f1; color: #fff; padding: 14px 28px; border-radius: 10px; font-weight: 600; font-size: 15px; text-decoration: none; cursor: pointer; border: none; transition: background 0.2s; }
+    .btn-primary:hover { background: #4f46e5; }
+    .btn-outline { background: #fff; color: #6366f1; border: 1.5px solid #6366f1; padding: 14px 28px; border-radius: 10px; font-weight: 600; font-size: 15px; text-decoration: none; cursor: pointer; transition: background 0.2s; }
+    .btn-outline:hover { background: #f5f3ff; }
+
+    /* Demo note */
+    .demo-note { margin: 48px auto 0; max-width: 560px; background: #fffbeb; border: 1px solid #fde68a; border-radius: 12px; padding: 16px 20px; font-size: 14px; color: #92400e; line-height: 1.6; text-align: left; }
+    .demo-note strong { color: #78350f; }
+
+    /* Features */
+    .features { max-width: 1000px; margin: 80px auto; padding: 0 24px; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; }
+    .feature-card { background: #fff; border: 1px solid #e5e7eb; border-radius: 14px; padding: 28px; }
+    .feature-icon { width: 44px; height: 44px; border-radius: 10px; background: #ede9fe; display: flex; align-items: center; justify-content: center; margin-bottom: 16px; font-size: 22px; }
+    .feature-card h3 { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+    .feature-card p { font-size: 14px; color: #6b7280; line-height: 1.6; }
+
+    /* Stack */
+    .stack { background: #111827; color: #fff; padding: 60px 24px; text-align: center; }
+    .stack h2 { font-size: 28px; font-weight: 700; margin-bottom: 8px; }
+    .stack p { color: #9ca3af; font-size: 15px; margin-bottom: 36px; }
+    .tech-pills { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; max-width: 700px; margin: 0 auto; }
+    .pill { background: #1f2937; border: 1px solid #374151; border-radius: 99px; padding: 7px 16px; font-size: 13px; font-weight: 500; color: #e5e7eb; }
+    .pill.highlight { background: #312e81; border-color: #6366f1; color: #c7d2fe; }
+
+    /* Footer */
+    footer { text-align: center; padding: 32px 24px; font-size: 13px; color: #9ca3af; border-top: 1px solid #e5e7eb; }
+    footer a { color: #6366f1; text-decoration: none; }
+
+    @media (max-width: 600px) {
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Nav -->
+  <nav>
+    <div class="nav-logo">⚡ AI Chat Widget</div>
+    <div class="nav-links">
+      <a href="#features">Features</a>
+      <a href="#stack">Tech Stack</a>
+      <a href="https://github.com/ed200poa-cmd/ai-chat-widget" target="_blank">GitHub</a>
+    </div>
+    <a href="https://github.com/ed200poa-cmd/ai-chat-widget" target="_blank" class="nav-cta">View Source</a>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-badge">Portfolio Project · Edward Kim</div>
+    <h1>Claude AI Chatbot<br><span>for WordPress</span></h1>
+    <p>
+      A production-ready WordPress plugin that embeds a streaming Claude AI chatbot on any page —
+      one shortcode, instant chat, token-by-token responses.
+    </p>
+    <div class="hero-actions">
+      <button class="btn-primary" onclick="document.getElementById('ai-chat-widget-root').scrollIntoView(); setTimeout(()=>document.querySelector('[aria-label=\'Open chat\']')?.click(),200)">
+        Try the Chat →
+      </button>
+      <a href="https://github.com/ed200poa-cmd/ai-chat-widget" target="_blank" class="btn-outline">View on GitHub</a>
+    </div>
+
+    <div class="demo-note">
+      <strong>👋 Try it now:</strong> Click the <strong>purple button</strong> in the bottom-right corner to open the AI chat widget. It streams live responses from Claude claude-sonnet-4-6 token by token — the same experience embedded in a WordPress site.
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="features" id="features">
+    <div class="feature-card">
+      <div class="feature-icon">⚡</div>
+      <h3>Token-by-Token Streaming</h3>
+      <p>Uses Server-Sent Events (SSE) to stream Claude's response in real time. No waiting — words appear as they're generated.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🔌</div>
+      <h3>WordPress Shortcode</h3>
+      <p>Add <code>[ai_chat_widget]</code> to any page or post. The floating chat button appears instantly, fully configured from the admin panel.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🗄️</div>
+      <h3>Conversation History</h3>
+      <p>Every message is stored in PostgreSQL with pgvector extension installed — RAG-ready for future semantic search over past conversations.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🎨</div>
+      <h3>Fully Customizable</h3>
+      <p>Set the widget title, primary color, and welcome message from the WordPress admin panel. No code changes required.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🔒</div>
+      <h3>Secure by Design</h3>
+      <p>The Anthropic API key lives only on the FastAPI server. It's never exposed to the browser. CORS configured for production use.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🚀</div>
+      <h3>One-Click Deploy</h3>
+      <p>Backend deploys to Railway via Dockerfile. PostgreSQL plugin added in one command. Environment variables auto-injected.</p>
+    </div>
+  </section>
+
+  <!-- Stack -->
+  <section class="stack" id="stack">
+    <h2>Tech Stack</h2>
+    <p>Built end-to-end with modern, production-grade tools</p>
+    <div class="tech-pills">
+      <span class="pill highlight">Claude claude-sonnet-4-6</span>
+      <span class="pill highlight">Server-Sent Events (SSE)</span>
+      <span class="pill">Python 3.12</span>
+      <span class="pill">FastAPI</span>
+      <span class="pill">langchain-anthropic</span>
+      <span class="pill">SQLAlchemy async</span>
+      <span class="pill">PostgreSQL + pgvector</span>
+      <span class="pill">React 18</span>
+      <span class="pill">TypeScript</span>
+      <span class="pill">Tailwind CSS</span>
+      <span class="pill">Vite (IIFE bundle)</span>
+      <span class="pill">WordPress PHP 8.1</span>
+      <span class="pill">Railway</span>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    Built by <a href="mailto:ed200.poa@gmail.com">Edward Kim</a> ·
+    <a href="https://github.com/ed200poa-cmd/ai-chat-widget" target="_blank">GitHub</a>
+  </footer>
+
+  <!-- Widget Settings (normally injected by WordPress) -->
+  <script>
+    window.AIChatWidgetSettings = {
+      backendUrl: window.location.origin,
+      widgetTitle: 'AI Assistant',
+      primaryColor: '#6366f1',
+      welcomeMessage: 'Hello! I\'m Claude — ask me anything about this project or anything else!',
+      nonce: ''
+    };
+  </script>
+
+  <!-- Chat Widget Bundle -->
+  <script src="/static/chat-widget.iife.js"></script>
+
+</body>
+</html>
