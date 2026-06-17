@@ -12,7 +12,9 @@ if _DATABASE_URL.startswith("postgres://"):
 elif _DATABASE_URL.startswith("postgresql://") and "+asyncpg" not in _DATABASE_URL:
     _DATABASE_URL = _DATABASE_URL.replace("postgresql://", "postgresql+asyncpg://", 1)
 
-_ssl = "require" if any(x in _DATABASE_URL for x in [".proxy.rlwy.net", ".railway.internal"]) else False
+_ssl: bool | str = False
+if ".proxy.rlwy.net" in _DATABASE_URL:
+    _ssl = True
 engine = create_async_engine(_DATABASE_URL, echo=False, connect_args={"ssl": _ssl})
 _session_maker = async_sessionmaker(engine, class_=AsyncSession, expire_on_commit=False)
 
@@ -40,12 +42,20 @@ class Conversation(Base):
 
 
 async def init_db() -> None:
-    async with engine.begin() as conn:
-        await conn.execute(text("CREATE EXTENSION IF NOT EXISTS vector"))
-        await conn.run_sync(Base.metadata.create_all)
+    try:
+        async with engine.begin() as conn:
+            await conn.execute(text("CREATE EXTENSION IF NOT EXISTS vector"))
+            await conn.run_sync(Base.metadata.create_all)
+        print("Database initialized successfully")
+    except Exception as exc:
+        print(f"Warning: Database init failed — {exc}")
+        print("Server starting without persistent storage")
 
 
 async def save_message(session_id: str, site_id: str, role: str, content: str) -> None:
-    async with _session_maker() as db:
-        db.add(Conversation(session_id=session_id, site_id=site_id, role=role, content=content))
-        await db.commit()
+    try:
+        async with _session_maker() as db:
+            db.add(Conversation(session_id=session_id, site_id=site_id, role=role, content=content))
+            await db.commit()
+    except Exception as exc:
+        print(f"Warning: Failed to save message — {exc}")
