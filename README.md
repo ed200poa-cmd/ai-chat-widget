@@ -4,6 +4,8 @@ A production-ready WordPress plugin that embeds a streaming Claude AI chatbot on
 
 **Built by Edward Kim — AI Developer**
 
+**Live demo: [https://ai-chat-widget-production-b175.up.railway.app](https://ai-chat-widget-production-b175.up.railway.app)**
+
 ---
 
 ## What This Is
@@ -130,7 +132,7 @@ data: [DONE]
 
 | Field | Description |
 |-------|-------------|
-| Backend API URL | Your Railway URL, e.g. `https://ai-chat-widget.up.railway.app` |
+| Backend API URL | Your Railway URL, e.g. `https://ai-chat-widget-production-b175.up.railway.app` |
 | Anthropic API Key | Stored server-side only, never sent to browser |
 | Widget Title | Text shown in chat header (default: AI Assistant) |
 | Primary Color | Hex color for button and header |
