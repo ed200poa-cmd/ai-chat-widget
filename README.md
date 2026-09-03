@@ -4,7 +4,7 @@ A production-ready WordPress plugin that embeds a streaming Claude AI chatbot on
 
 **Built by Edward Kim — AI Developer**
 
-**Live demo: [https://ai-chat-widget-production-b175.up.railway.app](https://ai-chat-widget-production-b175.up.railway.app)**
+**Live: [https://ai-chat-widget-production-b175.up.railway.app](https://ai-chat-widget-production-b175.up.railway.app)**
 
 ---
 
